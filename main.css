@@ -103,3 +103,8 @@
 .median {
   display: flex;
 }
+
+.median-checklist {
+  position: relative;
+  padding-left: 30px
+}
