@@ -39,9 +39,6 @@ export default class Median extends Component {
   }
 
   generateMedObj(height, width, medians, spotifyMedians) {
-    console.log(Math.min(min(Object.values(spotifyMedians)), min(Object.values(medians)) - 0.05));
-    console.log(Math.max(max(Object.values(spotifyMedians)), max(Object.values(medians))));
-    console.log(Object.values(spotifyMedians), Object.values(medians));
     const xScale = scaleLinear()
     .domain([Math.min(min(Object.values(spotifyMedians)), min(Object.values(medians)) - 0.05),
       Math.max(max(Object.values(spotifyMedians)), max(Object.values(medians)))])
@@ -107,7 +104,6 @@ export default class Median extends Component {
                     this.songFrequencyElement = el;
                   }}
                   transform={`translate(80, ${height - 25})`}/>
-                {/* recalculate medians after each rerender!!! */}
               {medObjs ? medObjs.medianArray.map((feature, idx) => {
                 return this.state[feature.name] ?
                   <rect
