@@ -83,9 +83,6 @@ export default class Feature extends Component {
 
     return (
       <div>
-        <div className="feature-heading">
-          <h1>Feature Component</h1>
-        </div>
         <div className="feature">
           <div className="feature-dropdown">
             <select onChange={(e) => this.changeSelectedValue(e)}>

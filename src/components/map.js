@@ -1,16 +1,16 @@
-import React, { Component } from "react"
+import React, {Component} from 'react';
 import {
   ComposableMap,
   ZoomableGroup,
   Geographies,
-  Geography,
-} from "react-simple-maps"
+  Geography
+} from 'react-simple-maps';
 
 const wrapperStyles = {
-  width: "100%",
+  width: '100%',
   maxWidth: 980,
-  margin: "0 auto",
-}
+  margin: '0 auto'
+};
 
 class Map extends Component {
   constructor(props) {
@@ -21,15 +21,17 @@ class Map extends Component {
   }
 
   handleClick(e) {
-  this.props.click(e.id);
-}
-
-  selected(id){
-    if (Object.keys(this.World).includes(id)){
-      return "teal";
-    }else{
-      return "#ECEFF1";
+    if (Object.keys(this.World).includes(e.id)) {
+      this.props.click(e.id);
     }
+  }
+
+  selected(id) {
+    if (Object.keys(this.World).includes(id)) {
+      return 'teal';
+    }
+    return '#ECEFF1';
+
   }
 
   render() {
@@ -39,18 +41,18 @@ class Map extends Component {
         <ComposableMap
           projectionConfig={{
             scale: 205,
-            rotation: [-11,0,0],
+            rotation: [-11, 0, 0]
           }}
           width={980}
           height={551}
           style={{
-            width: "100%",
-            height: "auto",
+            width: '100%',
+            height: 'auto'
           }}
         >
-          <ZoomableGroup center={[0,20]} disablePanning>
+          <ZoomableGroup center={[0, 20]} disablePanning>
             <Geographies geography={this.map}>
-              {(geographies, projection) => geographies.map((geography, i) => geography.id !== "ATA" &&
+              {(geographies, projection) => geographies.map((geography, i) => geography.id !== 'ATA' &&
               this.props && (
                 <Geography
                   key={i}
@@ -59,22 +61,22 @@ class Map extends Component {
                   style={{
                     default: {
                       fill: this.selected(geography.id),
-                      stroke: "#607D8B",
+                      stroke: '#607D8B',
                       strokeWidth: 0.75,
-                      outline: "none",
+                      outline: 'none'
                     },
                     hover: {
-                      fill: "yellow",
-                      stroke: "#607D8B",
+                      fill: 'yellow',
+                      stroke: '#607D8B',
                       strokeWidth: 0.75,
-                      outline: "black",
+                      outline: 'black'
                     },
                     pressed: {
-                      fill: "yellow",
-                      stroke: "#607D8B",
+                      fill: 'yellow',
+                      stroke: '#607D8B',
                       strokeWidth: 0.75,
-                      outline: "none",
-                    },
+                      outline: 'none'
+                    }
                   }}
                   onClick={this.handleClick.bind(this)}
                 />
@@ -83,8 +85,8 @@ class Map extends Component {
           </ZoomableGroup>
         </ComposableMap>
       </div>
-    )
+    );
   }
 }
 
-export default Map
+export default Map;
