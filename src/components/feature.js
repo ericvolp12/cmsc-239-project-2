@@ -48,7 +48,7 @@ export default class Feature extends Component {
         .domain([0, max(retVal.histData, function getLength(d) {
           return d.length;
         })])
-        .range([0, width - 20]);
+        .range([0, width - 100]);
       retVal.xAxis = axisBottom(retVal.xScale);
       retVal.yAxis = axisLeft(retVal.yScale);
       acc[trait] = retVal;
@@ -102,14 +102,14 @@ export default class Feature extends Component {
                 ref={(el) => {
                   this.songFrequencyElement = el;
                 }}
-                transform={`translate(30, ${height - 25})`}/>
+                transform={`translate(80, ${height - 25})`}/>
               {histObj.histData ? histObj.histData.map((bucket, idx) => {
                 return (
                   <rect
                     key={`feature_${idx}`}
                     height={histObj.yScale(bucket.x0) - histObj.yScale(bucket.x1)}
                     width={histObj.xScale(bucket.length)}
-                    x={30}
+                    x={80}
                     y={histObj.yScale(bucket.x1)}
                     fill={data.scales[selectedValue](((bucket.x1 - bucket.x0) / 2) + bucket.x0)} />
                 );
@@ -118,7 +118,7 @@ export default class Feature extends Component {
                 ref={(el) => {
                   this.bucketsElement = el;
                 }}
-                transform={'translate(30)'}/>
+                transform={'translate(80)'}/>
             </svg>
           </div>
         </div>
