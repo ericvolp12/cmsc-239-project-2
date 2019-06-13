@@ -13,7 +13,7 @@ const Arc = ({data, index, createArc, colors}) => (
       fill="white"
       fontSize="11"
     >
-      {`${data.data[0]} - ${Math.floor(data.data[1] / 1000)}k`}
+      {`${data.data[0]} ${(data.data[1] / 1000000).toFixed(2)}m`}
     </text>
   </g>
 );
