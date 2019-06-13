@@ -3,6 +3,7 @@ import {scaleLinear, scaleBand} from 'd3-scale';
 import {axisBottom, axisLeft} from 'd3-axis';
 import {min, max} from 'd3-array';
 import {select} from 'd3-selection';
+import {getMedians} from './../utils';
 
 export default class Median extends Component {
   constructor(props) {
@@ -27,11 +28,7 @@ export default class Median extends Component {
   }
 
   componentDidMount() {
-    this.renderAxis();
-  }
-
-  componentDidUpdate() {
-    this.renderAxis();
+    this.renderAxis(this.state.medObj);
   }
 
   generateMedObj(height, width, medians) {
@@ -41,30 +38,43 @@ export default class Median extends Component {
     const yScale = scaleBand()
     .domain(Object.keys(medians))
     .range([0, height - 50]);
-    return {xScale, yScale};
+    const medianArray = Object.keys(medians).reduce((res, d) => {
+      res.push({name: d, value: medians[d]});
+      return res;
+    }, []);
+    return {xScale, yScale, medianArray};
   }
   changeSelectedValues(e) {
     const target = e.target;
     this.setState({[`${target.value}`]: target.checked});
   }
 
-  renderAxis() {
+  renderAxis(newMedObj) {
     select(this.songFrequencyElement).call(axisG =>
-      axisG.call(axisBottom(this.state.medObj.xScale)));
+      axisG.call(axisBottom(newMedObj.xScale)));
     select(this.bucketsElement).call(axisG =>
-      axisG.call(axisLeft(this.state.medObj.yScale)));
+      axisG.call(axisLeft(newMedObj.yScale)));
   }
 
   render() {
     const {
       medObj
-    } = this.state
+    } = this.state;
     const {
       height,
       width,
+      traits,
       data
     } = this.props;
-
+    const selectedSongs = data.songs.reduce((res, d) => {
+      if (d.selected) {
+        res.push(d);
+      }
+      return res;
+    }, []);
+    const medians = getMedians(selectedSongs, traits);
+    const medObjs = this.generateMedObj(height, width, medians);
+    this.renderAxis(medObjs);
     return (
       <div>
         <div className="median-heading">
@@ -79,7 +89,7 @@ export default class Median extends Component {
                   }}
                   transform={`translate(80, ${height - 25})`}/>
                 {/* recalculate medians after each rerender!!! */}
-              {data ? data.mediansArray.map((feature, idx) => {
+              {medObjs ? medObjs.medianArray.map((feature, idx) => {
                 return this.state[feature.name] ?
                   <rect
                     key={`median_${idx}`}
