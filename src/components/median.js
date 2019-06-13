@@ -14,16 +14,23 @@ export default class Median extends Component {
       width,
       data
     } = props;
-
+    const spotifyMedians = {
+      valence: 0.38,
+      liveness: 0.11,
+      acousticness: 0.11,
+      energy: 0.8,
+      danceability: 0.64
+    };
     const medians = data.medians;
-    const medObj = this.generateMedObj(height, width, medians);
+    const medObj = this.generateMedObj(height, width, medians, spotifyMedians);
     this.state = {
       valence: false,
       liveness: false,
       acousticness: false,
       energy: false,
       danceability: false,
-      medObj
+      medObj,
+      spotifyMedians
     };
   }
 
@@ -31,9 +38,13 @@ export default class Median extends Component {
     this.renderAxis(this.state.medObj);
   }
 
-  generateMedObj(height, width, medians) {
+  generateMedObj(height, width, medians, spotifyMedians) {
+    console.log(Math.min(min(Object.values(spotifyMedians)), min(Object.values(medians)) - 0.05));
+    console.log(Math.max(max(Object.values(spotifyMedians)), max(Object.values(medians))));
+    console.log(Object.values(spotifyMedians), Object.values(medians));
     const xScale = scaleLinear()
-    .domain([min(Object.values(medians)) - 0.05, max(Object.values(medians))])
+    .domain([Math.min(min(Object.values(spotifyMedians)), min(Object.values(medians)) - 0.05),
+      Math.max(max(Object.values(spotifyMedians)), max(Object.values(medians)))])
     .range([0, width - 100]);
     const yScale = scaleBand()
     .domain(Object.keys(medians))
@@ -58,7 +69,8 @@ export default class Median extends Component {
 
   render() {
     const {
-      medObj
+      medObj,
+      spotifyMedians
     } = this.state;
     const {
       height,
@@ -73,8 +85,15 @@ export default class Median extends Component {
       return res;
     }, []);
     const medians = getMedians(selectedSongs, traits);
-    const medObjs = this.generateMedObj(height, width, medians);
+    const medObjs = this.generateMedObj(height, width, medians, spotifyMedians);
     this.renderAxis(medObjs);
+    const spotifyMedianArray = [
+      {name: 'valence', value: 0.38},
+      {name: 'liveness', value: 0.11},
+      {name: 'acousticness', value: 0.11},
+      {name: 'energy', value: 0.8},
+      {name: 'danceability', value: 0.64}
+    ];
     return (
       <div>
         <div className="median-heading">
@@ -99,6 +118,18 @@ export default class Median extends Component {
                     fill={data.scales[feature.name](data.medians[feature.name])}
                     transform={'translate(80, 25)'} /> :
                     null;
+              }) : null}
+              {spotifyMedians ? spotifyMedianArray.map((feature, idx) => {
+                return this.state[feature.name] ?
+                  <line
+                    key={`spotifyMedian_${idx}`}
+                    x1={medObj.xScale(feature.value)}
+                    x2={medObj.xScale(feature.value)}
+                    y1={medObj.yScale(feature.name)}
+                    y2={medObj.yScale(feature.name) + medObj.yScale.bandwidth()}
+                    transform={'translate(80, 25)'}
+                    stroke="#000000"
+                    strokeWidth="5" /> : null;
               }) : null}
               <g
                 ref={(el) => {
