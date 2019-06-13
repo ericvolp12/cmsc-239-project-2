@@ -1,15 +1,20 @@
 /* EDIT ANYTHING YOU WANT */
+
+html {
+  font-family: Open Sans;
+}
+
 .title {
   color: black;
-  font-family: Roboto-Black;
+  font-family: Open Sans; 
   font-size: 36px;
   font-weight: bold;
 }
 
 .subtitle {
   color: black;
-  font-family: Roboto-Black;
-  font-size: 12px;
+  font-family: Open Sans;   
+  font-size: 14px;
   font-weight: semi-bold;
 }
 
@@ -107,4 +112,13 @@
 .median-checklist {
   position: relative;
   padding-left: 30px
+}
+
+.waterfall_container{
+  margin-top: 10px;
+}
+
+.text-block{
+  max-width: 1000px;
+  margin-top: 15px;
 }

@@ -93,9 +93,6 @@ export default class Median extends Component {
     ];
     return (
       <div>
-        <div className="median-heading">
-          <h1>Median Bar Chart Component</h1>
-        </div>
         <div className="median">
           <div className="median-chart">
             <svg className="median-svg" height={height} width={width} transform={'translate(20, 15)'}>
