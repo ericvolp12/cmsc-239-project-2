@@ -170,7 +170,50 @@ class RootComponent extends React.Component {
             height={500}
             width={1000}
           /> : null }
+        <div className="text-block">
+          <div className="title" align="center">
+            Who Was Listening to Whom in 2018?
+          </div>
+          <div className="subtitle">
+            The following map component gives us a chance to view the most popular artists in some
+            countries around the world. By clicking on each available country (colored turquoise)
+            on the map, the pie chart changes to reflect the most streamed top five artists (as well
+            as their number of streams).
+          </div>
+          <div className="subtitle">
+            The data gives some very interesting insights into which artists are popular in
+            each geographic region. For example, Post Malone consistently places in the top
+            five in English speaking countries regardless of continent (e.g. the U.S., Canada,
+            U.K., Australia), whereas he is nowhere to be found in the top five in any non-English
+            speaking country. The same cannot be said for Ed Sheeran, who places rather frequently
+            in the top five not only in English speaking countries, but also in countries like
+            Costa Rica, Japan, Indonesia, and the Philippines. Why one English speaking artist
+            appears only appears in the top five in English speaking countries, while another
+            English speaking artist appears in the top five in non-English speaking countries
+            as well is an open question. It could be due to differences in song topics (i.e.
+            beer bottles &amp; bongs vs. melancholy heartbreak), or something more cheeky… perhaps,
+            “danceability” or “valence”?
+          </div>
+        </div>
         <WhoComponent />
+        <div className="text-block">
+          <div className="title" align="center">
+            To Conclude...
+          </div>
+          <div className="subtitle">
+            Our exploration of Spotify streaming has given us some interesting insights.
+            We’ve been able to interact with and manipulate the datasets provided, and
+            see how the data shifts when songs we know well are disincluded from the set.
+            The data have taught us about what really makes a popular song, as well as who
+            these artists are and where in the world they are being listened to. While this
+            was a cursory look at Spotify data, as we were only exploring top songs in 2018,
+            the methods we’ve used to manipulate the data and find interesting relationships
+            are applicable to more vast and intricate datasets. This has been but a brief
+            exploration of the world of data, giving you agency in the process of data
+            visualization. I hope you enjoyed the journey and are inspired to dig deeper
+            into the data that runs our daily lives.
+          </div>
+        </div>
       </div>
     );
   }

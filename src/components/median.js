@@ -131,7 +131,7 @@ export default class Median extends Component {
                 transform={'translate(80, 25)'}/>
             </svg>
           </div>
-          <div className="median-checklist">
+          <div className="median-checklist" align="left">
             <form onChange={(e) => this.changeSelectedValues(e)}>
               <input type="checkbox" name="feature" value="valence"/>Valence<br/>
               <input type="checkbox" name="feature" value="liveness"/>Liveness<br/>
